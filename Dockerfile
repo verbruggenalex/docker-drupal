@@ -10,9 +10,7 @@ RUN apt-get update \
 
 USER docker
 
-RUN rm ~/.composer/composer.*
+ADD assets/composer.json /home/docker/.composer/composer.json
 
-ADD --chown=docker:docker assets/composer.json ~/.composer/composer.json
-
-RUN composer global install \
+RUN composer global require composer/installers cweagans/composer-patches dealerdirect/phpcodesniffer-composer-installer ergebnis/composer-normalize php-parallel-lint/php-parallel-lint phpro/grumphp \
  && rm -rf ~/.composer/cache

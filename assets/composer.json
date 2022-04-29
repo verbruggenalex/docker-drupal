@@ -1,18 +1,43 @@
 {
-    "require": {
-        "phpro/grumphp": "^1.11",
-        "bamarni/symfony-console-autocomplete": "^1.5",
-        "composer/installers": "^2.1",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
-        "ergebnis/composer-normalize": "^2.25",
-        "php-parallel-lint/php-parallel-lint": "^1.3"
-    },
     "config": {
         "allow-plugins": {
             "composer/installers": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "cweagans/composer-patches": true,
+            "drupal/core-composer-scaffold": true,
             "ergebnis/composer-normalize": true,
-            "phpro/grumphp": true
+            "phpro/grumphp": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "extra": {
+        "composer-exit-on-patch-failure": true,
+        "drupal-scaffold": {
+            "allowed-packages": [
+                "drupal/core"
+            ],
+            "locations": {
+                "web-root": "web/"
+            }
+        },
+        "installer-paths": {
+            "web/config": [
+                "type:drupal-config"
+            ],
+            "web/core": [
+                "type:drupal-core"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ]
+        },
+        "patchLevel": {
+            "drupal/core": "-p2"
         }
     }
 }
