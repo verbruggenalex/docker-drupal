@@ -14,5 +14,6 @@ USER docker
 
 COPY assets/composer.json ~/.composer/composer.json
 
-RUN composer global install \
+RUN rm ~/.composer/composer.lock \
+ && composer global install \
  && rm -rf ~/.composer/cache
