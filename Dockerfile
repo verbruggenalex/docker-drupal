@@ -8,12 +8,11 @@ USER root
 RUN apt-get update \
  && apt-get install -y mysql-client --no-install-recommends
 
-RUN composer self-update --2
-
 USER docker
 
-COPY assets/composer.json ~/.composer/composer.json
+RUN rm ~/.composer/composer.*
 
-RUN rm ~/.composer/composer.lock \
- && composer global install \
+ADD --chown=docker:docker assets/composer.json ~/.composer/composer.json
+
+RUN composer global install \
  && rm -rf ~/.composer/cache
