@@ -37,7 +37,7 @@ jobs:
         run: |
           export TAG=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}
           docker tag php docker.io/verbral/docker-drupal:$TAG
-          docker push docker.io/verbral/docker-drupal:TAG
+          docker push docker.io/verbral/docker-drupal:$TAG
           export TAG=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}-node${{ matrix.node-version }}
           docker tag node docker.io/verbral/docker-drupal:$TAG
-          docker push docker.io/verbral/docker-drupal:TAG
+          docker push docker.io/verbral/docker-drupal:$TAG
