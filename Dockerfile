@@ -1,7 +1,6 @@
-ARG PHP_VERSION=7.4
-ARG NODE_VERSION=14
+ARG PHP_EXTENSIONS="mysqli"
 
-FROM thecodingmachine/php:$PHP_VERSION-v4-apache-node$NODE_VERSION
+FROM thecodingmachine/$IMAGE_NAME
 
 USER root
 

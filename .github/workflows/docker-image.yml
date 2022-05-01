@@ -13,17 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ["7.4", "8.0", "8.1"]
+        php-version: ["8.1"]
+        php-flavor: ["fpm", "cli", "apache"]
         node-version: ["14"]
-    env:
-      IMAGE_NAME: docker-drupal
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Build image verbral/docker-drupal:${{ matrix.php-version }}-v4-apache-node${{ matrix.node-version }}
-        run: docker build . --file Dockerfile --tag image --build-arg PHP_VERSION=${{ matrix.php-version }} --build-arg NODE_VERSION=${{ matrix.node-version }}
+      - name: Build ${{ matrix.php-flavor }} images for PHP ${{ matrix.php-version }} and NODE ${{ matrix.node-version }}
+        run: |
+          IMAGE_NAME=php:${{ matrix.php-version }}-v4-${{ matrix.php-flavor }} docker build . --file Dockerfile --tag docker.io/verbral/docker-drupal:$IMAGE_NAME --build-arg IMAGE_NAME=$IMAGE_NAME
+          IMAGE_NAME=php:${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}-node${{ matrix.node-version }} docker build . --file Dockerfile --tag docker.io/verbral/docker-drupal:$IMAGE_NAME --build-arg IMAGE_NAME=$IMAGE_NAME
+
 
       - name: Log into registries
         run: |
@@ -32,8 +34,7 @@ jobs:
           # Login to Github.
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u verbruggenalex --password-stdin
 
-      - name: Push image verbral/docker-drupal:${{ matrix.php-version }}-v4-apache-node${{ matrix.node-version }} to registry
+      - name: Push ${{ matrix.php-flavor }} images for PHP ${{ matrix.php-version }} and NODE ${{ matrix.node-version }}
         run: |
-          # Push to Dockerhub.
-          docker tag image docker.io/verbral/$IMAGE_NAME:${{ matrix.php-version }}-v4-apache-node${{ matrix.node-version }}
-          docker push docker.io/verbral/$IMAGE_NAME:${{ matrix.php-version }}-v4-apache-node${{ matrix.node-version }}
+          IMAGE_NAME=php:${{ matrix.php-version }}-v4-${{ matrix.php-flavor }} docker push docker.io/verbral/$IMAGE_NAME
+          IMAGE_NAME=php:${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}-node${{ matrix.node-version }} docker push docker.io/verbral/$IMAGE_NAME
