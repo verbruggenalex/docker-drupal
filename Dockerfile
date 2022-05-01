@@ -1,7 +1,7 @@
 ARG PHP_EXTENSIONS="mysqli"
 ARG TAG="8.1-cli"
 
-FROM thecodingmachine/php:"$TAG"
+FROM thecodingmachine/php:$TAG
 
 USER root
 

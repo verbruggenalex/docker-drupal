@@ -23,9 +23,8 @@ jobs:
 
       - name: Build ${{ matrix.php-flavor }} images for PHP ${{ matrix.php-version }} and NODE ${{ matrix.node-version }}
         run: |
-          TAG=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }} docker build . --file Dockerfile --tag php --build-arg TAG=$TAG
-          TAG=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}-node${{ matrix.node-version }} docker build . --file Dockerfile --tag node --build-arg TAG=$TAG
-
+          docker build . --file Dockerfile --tag php --build-arg TAG=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}
+          docker build . --file Dockerfile --tag node --build-arg TAG=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}-node${{ matrix.node-version }}
 
       - name: Log into registries
         run: |
