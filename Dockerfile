@@ -1,6 +1,6 @@
 ARG PHP_EXTENSIONS="mysqli"
 
-FROM thecodingmachine/$IMAGE_NAME
+FROM thecodingmachine/php:$IMAGE_NAME
 
 USER root
 

@@ -23,8 +23,8 @@ jobs:
 
       - name: Build ${{ matrix.php-flavor }} images for PHP ${{ matrix.php-version }} and NODE ${{ matrix.node-version }}
         run: |
-          IMAGE_NAME=php:${{ matrix.php-version }}-v4-${{ matrix.php-flavor }} docker build . --file Dockerfile --tag docker.io/verbral/docker-drupal:$IMAGE_NAME --build-arg IMAGE_NAME=$IMAGE_NAME
-          IMAGE_NAME=php:${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}-node${{ matrix.node-version }} docker build . --file Dockerfile --tag docker.io/verbral/docker-drupal:$IMAGE_NAME --build-arg IMAGE_NAME=$IMAGE_NAME
+          IMAGE_NAME=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }} docker build . --file Dockerfile --tag docker.io/verbral/docker-drupal:$IMAGE_NAME --build-arg IMAGE_NAME=$IMAGE_NAME
+          IMAGE_NAME=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}-node${{ matrix.node-version }} docker build . --file Dockerfile --tag docker.io/verbral/docker-drupal:$IMAGE_NAME --build-arg IMAGE_NAME=$IMAGE_NAME
 
 
       - name: Log into registries
@@ -36,5 +36,5 @@ jobs:
 
       - name: Push ${{ matrix.php-flavor }} images for PHP ${{ matrix.php-version }} and NODE ${{ matrix.node-version }}
         run: |
-          IMAGE_NAME=php:${{ matrix.php-version }}-v4-${{ matrix.php-flavor }} docker push docker.io/verbral/$IMAGE_NAME
-          IMAGE_NAME=php:${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}-node${{ matrix.node-version }} docker push docker.io/verbral/$IMAGE_NAME
+          IMAGE_NAME=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }} docker push docker.io/verbral/docker-drupal:$IMAGE_NAME
+          IMAGE_NAME=${{ matrix.php-version }}-v4-${{ matrix.php-flavor }}-node${{ matrix.node-version }} docker push docker.io/verbral/docker-drupal:$IMAGE_NAME
